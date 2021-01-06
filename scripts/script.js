@@ -18,9 +18,6 @@ var vraagText = document.querySelector('.vraag p');
 var vraagAfbeelding = document.querySelector('.vraagAfbeelding');
 var timer = document.querySelector('.timer');
 
-
-var liArray = document.querySelectorAll("li");
-
 //Posities voor de antwoord knoppen
 var posities = ['linksBoven', 'rechtsBoven', 'linksOnder', 'rechtsOnder']; 
 
@@ -53,19 +50,20 @@ var phoneGebruikt = false;
 var audienceGebruikt = false;
 
 // Audio
+var first5QuestionsMusic = document.getElementById("first5QuestionsMusic");
 var letsPlayMusic = document.getElementById("letsPlayMusic"); 
 var correctMusic = document.getElementById("correctMusic"); 
+var correctFirst5QuestionsMusic = document.getElementById("correctFirst5QuestionsMusic"); 
 var loseMusic = document.getElementById("loseMusic"); 
 var fiftyFiftyMusic = document.getElementById("fiftyFiftyMusic");
 var phoneMusic = document.getElementById("phoneMusic");
 var audienceMusic = document.getElementById("audienceMusic");
+var millionMusic = document.getElementById("millionMusic");
 
 // Audio volume
 correctMusic.volume = 0.4; 
 loseMusic.volume = 0.4; 
 fiftyFiftyMusic.volume = 0.4; 
-
-
 
 //Makkelijke vragen lijst
 var makkelijkeVragen = [
@@ -87,7 +85,7 @@ var makkelijkeVragen = [
     },
     {
         vraag: "What catastrophically collided with the Titanic in 1912?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "titanic.jpg",
         goedeAntwoord: "An iceberg",
         antwoord2: "A whale",
         antwoord3: "A cruise ship",
@@ -115,7 +113,7 @@ var makkelijkeVragen = [
 var gemiddeldeVragen = [
     {
         vraag: "What is the capital of Australia?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "australia.png",
         goedeAntwoord: "Canberra",
         antwoord2: "Sydney",
         antwoord3: "Melbourne",
@@ -123,7 +121,7 @@ var gemiddeldeVragen = [
     },
     {
         vraag: "When did Steve Jobs pass away?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "steve_jobs.jpg",
         goedeAntwoord: "2011",
         antwoord2: "2012",
         antwoord3: "2013",
@@ -139,7 +137,7 @@ var gemiddeldeVragen = [
     },
     {
         vraag: "Which battles took place between the Royal Houses of York and Lancaster?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "battles.jpg",
         goedeAntwoord: "War of the Roses",
         antwoord2: "Thirty Years War",
         antwoord3: "Hundred Years War",
@@ -155,7 +153,7 @@ var gemiddeldeVragen = [
     },
     {
         vraag: "Which of the following is there more of on Earth?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "earth.jpg",
         goedeAntwoord: "Plankton",
         antwoord2: "Sheeps",
         antwoord3: "Ants",
@@ -171,7 +169,7 @@ var gemiddeldeVragen = [
     },
     {
         vraag: "For over 50 years, what treat was tradionally included in packs of baseball trading card?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "baseball.png",
         goedeAntwoord: "Bubblegum",
         antwoord2: "Chocolate wafer",
         antwoord3: "Gummi bear",
@@ -179,7 +177,7 @@ var gemiddeldeVragen = [
     },
     {
         vraag: "In the 2000's movie 'Gladitor', Russell Crowes character is a gladiator under what Roman emperor?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "gladiator.jpg",
         goedeAntwoord: "Commodus",
         antwoord2: "Titus",
         antwoord3: "Nero",
@@ -199,7 +197,7 @@ var gemiddeldeVragen = [
 var moeilijkeVragen = [
     {
         vraag: "The Earth is approximately how many km away from the Sun?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "earth.jpg",
         goedeAntwoord: "149.668.992 km",
         antwoord2: "14.966.899,2 km",
         antwoord3: "62.764.416 km",
@@ -215,7 +213,7 @@ var moeilijkeVragen = [
     },
     {
         vraag: "Which insect inspired the term 'computer bug'?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "bug.jpg",
         goedeAntwoord: "Moth",
         antwoord2: "Beetle",
         antwoord3: "Fly",
@@ -223,7 +221,7 @@ var moeilijkeVragen = [
     },
     {
         vraag: "Which man does NOT have a chemical element named after him?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "chemical_element.png",
         goedeAntwoord: "Isaac Newton",
         antwoord2: "Enrico Fermi",
         antwoord3: "Albert Einstein",
@@ -231,14 +229,13 @@ var moeilijkeVragen = [
     },
     {
         vraag: "Which scientific unit is named after an Italian nobleman?",
-        afbeelding: "miljonairs.png",
+        afbeelding: "nobleman.png",
         goedeAntwoord: "Volt",
         antwoord2: "Ohm",
         antwoord3: "Pascal",
         antwoord4: "Hertz"
     }
 ];
-
 
 //Vragen array met de volgorde: vraag, afbeelding, goed antwoord, fout antwoord, fout antwoord, fout antwoord
 var vragen = [];
@@ -265,16 +262,15 @@ var prijzen = [
 
 var vraagCounter = 0; //vraag counter op 0, dus de eerste vraag wordt gepakt
 
-
 //Start functie
 function start()
 {
-
     //Husselt alle vragenlijsten
     shuffle(makkelijkeVragen);
     shuffle(gemiddeldeVragen);
     shuffle(moeilijkeVragen);
 
+    //Pakt van elke lijst 5 vragen en voegt die toe aan de vragenlijst
     for(i = 0; i < 5; i++)
     {
         vragen.push(makkelijkeVragen[i]);
@@ -296,7 +292,7 @@ function start()
     //Prijzen worden weergeven in de ordered list
     for(i = 0; i < 15; i++)
     {
-        if(i == 4 || i == 9 || i == 14)
+        if(i === 4 || i === 9 || i === 14)
         {
             //Check points li's krijgen een andere class
             prijzenLijst.innerHTML += `<li class="checkPoint">` + prijzen[i] +`</li>`;
@@ -308,7 +304,7 @@ function start()
     }
     
     //Speel muziek af
-    letsPlayMusic.play();
+    first5QuestionsMusic.play();
 
     //Weergeeft vraag, antwoorden en afbeelding
     weergeefVraag();
@@ -356,17 +352,16 @@ function shuffle(lijst)
     //Deze loop gaat net zo lang door tot dat i niet hoger is dan 0
     for (i = lijst.length - 1; i > 0; i--) 
     {
-        //j krijg een afgeronde (willekeurig waarde maal de waarde van i + 1)
+        //j krijg een afgeronde (willekeurig) waarde maal de waarde van i + 1
         j = Math.floor(Math.random() * (i + 1));
-        //lijst i wordt tijdelijk opslagen in temp
+        //lijst[i] waarde wordt tijdelijk opslagen in temp
         temp = lijst[i];
-        // lijst i wordt vervangen door lijst j
+        //lijst[i] wordt vervangen door de waarde van lijst[j]
         lijst[i] = lijst[j];
-        //lijst j wordt temp, de vorige waarde van lijst i
+        //lijst[j] krijgt de waarde van temp, de vorige waarde van lijst[i]
         lijst[j] = temp;
     }    
 }
-
 
 var stopTimer = false;
 //Aantal seconden (-1) die je hebt om een vraag te beantwoorden
@@ -379,7 +374,9 @@ function startTimer()
     var timerFunction = setInterval(
         function myTimer() 
         {
-            if (stopTimer == true)
+            //bij === moeten zowel het type als de waarde gelijk zijn
+            //aangepast op advies van een studentassistent
+            if (stopTimer === true)
             {
                 //Als boolean stopTimer true is, wordt de timer gestopt
                 this.clearInterval(timerFunction);
@@ -394,7 +391,7 @@ function startTimer()
                 timer.textContent = timerSec;
 
                 //Als timerSec 0 is, stopt de timer en stopt het spel
-                if(timerSec == 0)
+                if(timerSec === 0)
                 {
                     this.clearInterval(timerFunction);
                     klikFoutAntwoord();
@@ -418,24 +415,36 @@ function klikGoedAntwoord()
     disableKnoppen();
     stopMuziek();
     
-    //Als de laatste vraag goed is heb je gewonnnen
-    if(vraagCounter == 14)
+    //Als de laatste vraag goed is, heb je gewonnen
+    if(vraagCounter === 14)
     {
+        var liArray = document.querySelectorAll("li");
         liArray[14].classList.add('huidigBedrag');
-        vraagText.textContent = "You won 1.000.000!"  ///////////
+        vraagText.textContent = "You won " + prijzen[14] + "!";
+        millionMusic.play();
         //Spel stopt
     }
     else
     {
-        //Speel correctMusic af
-        correctMusic.play();
-        setTimeout(updateBedrag, 1600); // Wacht 1600 miliseconden voor dat je het goede antwoord groen maakt, zodat het timed met de muziek
+        //Speel andere muziek af na vraag 5
+        if(vraagCounter < 5)
+        {
+            correctFirst5QuestionsMusic.play();///ty
+            updateBedrag();
+        }
+        else
+        {
+            correctMusic.play();
+            setTimeout(updateBedrag, 1600); // Wacht 1600 miliseconden voor dat je het goede antwoord groen maakt, zodat het timed met de muziek
+        }
     }
 }
 
 //Stop alle muziek
 function stopMuziek()
 {   
+    first5QuestionsMusic.pause();
+    first5QuestionsMusic.currentTime = 0;
     letsPlayMusic.pause();
     letsPlayMusic.currentTime = 0;
     fiftyFiftyMusic.pause();
@@ -456,18 +465,25 @@ function updateBedrag()
     var liArray = document.querySelectorAll("li");
     liArray[vraagCounter].classList.add('huidigBedrag');
 
-    setTimeout(volgendeVraag, 5400); // Wacht 5400 miliseconden tot dat correctMusic klaar is met afspelen
+    if(vraagCounter < 5)
+    {
+        setTimeout(volgendeVraag, 2000); // Wacht 2000 miliseconden tot dat correctFirst5QuestionsMusic klaar is met afspelen
+    }
+    else
+    {
+        setTimeout(volgendeVraag, 5400); // Wacht 5400 miliseconden tot dat correctMusic klaar is met afspelen
+    }
 }
 
 //Toont de volgende vraag
 function volgendeVraag()
 {
     //Verberg de beller hulplijn
-    beller.hidden == false;
+    beller.hidden === false;
     beller.style.setProperty("display", "none", "");
 
     //Verberg de publiek hulplijn
-    publiek.hidden == false;
+    publiek.hidden === false;
     publiek.style.setProperty("display", "none", "");
 
     //Maak alle antwoordknoppen zichtbaar en de antwoordknoppen en hulplijn knoppen (als dat nodig is)
@@ -480,14 +496,24 @@ function volgendeVraag()
 
     //Weergeeft de volgende vraag, antwoorden en afbeelding
     weergeefVraag();
-    //Speelt letsPlayMusic af
-    letsPlayMusic.play();
+    
+    if(vraagCounter < 5)
+    {
+        first5QuestionsMusic.play();
+        //Zorgt ervoor dat de timer weer kan starten
+        stopTimer = false;
+        setTimeout(startTimer, 4700);//Start na 4700 milliseconden de timer, dus pas als letsPlayMusic klaar is
+    }
+    else
+    {
+        //Speelt muziek af
+        letsPlayMusic.play();
+        //Verbergt timer
+        timer.hidden = true;
+    }
 
     // Husselt de knoppen
     husselKnoppen(); 
-    //Zorgt ervoor dat de timer weer kan starten
-    stopTimer = false;
-    setTimeout(startTimer, 4700);//Start na 4700 milliseconden de timer, dus pas als letsPlayMusic klaar is
 }
 
 //Enabled de knoppen
@@ -500,15 +526,15 @@ function enableKnoppen()
     }
     
     //Als de hulplijn niet is gebruikt, maak ze enabled
-    if(fiftyFiftyGebruikt == false)
+    if(fiftyFiftyGebruikt === false)
     {
         fiftyFiftyKnop.disabled = false;
     }
-    if(phoneGebruikt == false)
+    if(phoneGebruikt === false)
     {
         phoneKnop.disabled = false;
     }
-    if(audienceGebruikt == false)
+    if(audienceGebruikt === false)
     {
         audienceKnop.disabled = false;
     }
@@ -549,17 +575,31 @@ function klikFoutAntwoord()
     {
         //Als je een vraag fout hebt na de 10de vraag dan win je de prijs op index 9
         vraagText.textContent = "You won " +  prijzen[9];
+        resetText.textContent = "You won " +  prijzen[9];
     }
     else if(vraagCounter > 4)
     {
         //Als je een vraag fout hebt voor de 10de vraag dan win je de prijs op index 4
         vraagText.textContent = "You won " +  prijzen[4];
+        resetText.textContent = "You won " +  prijzen[4];
     }
-    else if(vraagCounter < 4)
+    else if(vraagCounter < 5)
     {
         //Als je een vraag fout hebt voor de 5de vraag, dan win je niks
         vraagText.textContent = "You lost!";
     }
+  
+    //Duurt 5000 milliseconden voordat het resetScherm wordt weergeven
+    setTimeout(function()
+    {
+        //Stop de timer
+        stopTimer = true;
+
+        stopMuziek();
+        //Laat het resetScherm zien
+        resetScherm.hidden = false;
+        resetScherm.classList.remove("verbergResetScherm");
+    }, 5000);
 }
 
 // Maak Knop 2 rood
@@ -592,13 +632,13 @@ function gebruikFiftyFifty()
     //Maakt een willkeurig getal aan van 1 tot 3
     var knopDieOverblijft = Math.floor((Math.random() * 3) + 1);
 
-    if(knopDieOverblijft == 1)
+    if(knopDieOverblijft === 1)
     {
         //Als het getal 1 is, verberg antwoordKnop 3 en 4
         antwoordKnoppen[2].hidden = true;
         antwoordKnoppen[3].hidden = true;
     }
-    else if (knopDieOverblijft == 2)
+    else if (knopDieOverblijft === 2)
     {
         //Als het getal 2 is, verberg antwoordKnop 2 en 4
         antwoordKnoppen[1].hidden = true;
@@ -624,7 +664,7 @@ function gebruikPhone()
     phoneMusic.play();
 
     //Toont het beller DOM object
-    beller.hidden == true;
+    beller.hidden === true;
     beller.style.setProperty("display", "block", "");
 
     //Bron: JavaScript & jQuery - interactive front-end web development - Jon Duckett
@@ -632,7 +672,7 @@ function gebruikPhone()
     var bellerWeetHet = Math.floor((Math.random() * 2));
 
     //Als weetHijHetAntwoord 0 is OF vraag counter is lager dan 9, dan krijg het het goede antwoord
-    if(bellerWeetHet == 0 || vraagCounter < 10)
+    if(bellerWeetHet === 0 || vraagCounter < 10)
     {
         bellerText.textContent = "Ik denk dat het antwoord " + antwoordKnoppen[0].textContent + " is.";
     }
@@ -663,7 +703,7 @@ function gebruikAudience()
     audienceMusic.play();
 
     //Toont het audience DOM object
-    publiek.hidden == true;
+    publiek.hidden === true;
     publiek.style.setProperty("display", "block", "");
 
     //Bron: https://stackoverflow.com/questions/19277973/generate-4-random-numbers-that-add-to-a-certain-value-in-javascript/19278123
@@ -685,7 +725,7 @@ function gebruikAudience()
         randomNumbers.sort((a,b)=>b-a);
         var temp;
 
-        if(antwoordKnoppen[0].className == 'rechtsBoven')//Als het goede antwoord rechtsBoven staat
+        if(antwoordKnoppen[0].className === 'rechtsBoven')//Als het goede antwoord rechtsBoven staat
         {
             //Sla randomNumbers[0] tijdelijk op
             temp = randomNumbers[0];
@@ -694,7 +734,7 @@ function gebruikAudience()
             //Stop de oude waarde van randomNumbers[0] in randomNumbers[1]
             randomNumbers[1] = temp;
         }
-        else if(antwoordKnoppen[0].className == 'linksOnder')//Als het goede antwoord linksOnder staat
+        else if(antwoordKnoppen[0].className === 'linksOnder')//Als het goede antwoord linksOnder staat
         {
             //Sla randomNumbers[0] tijdelijk op
             temp = randomNumbers[0];
@@ -703,7 +743,7 @@ function gebruikAudience()
             //Stop de oude waarde van randomNumbers[0] in randomNumbers[2]
             randomNumbers[2] = temp;
         }
-        else if(antwoordKnoppen[0].className == 'rechtsOnder')//Als het goede antwoord rechtsOnder staat
+        else if(antwoordKnoppen[0].className === 'rechtsOnder')//Als het goede antwoord rechtsOnder staat
         {
             //Sla randomNumbers[0] tijdelijk op
             temp = randomNumbers[0];
@@ -727,6 +767,27 @@ function gebruikAudience()
     audienceGebruikt = true;
 }
 
+//Gebruik van hulplijnen met je toetsenbord
+//Suggestie van studentassistent
+function schakelHulpLijnIn( event )
+{
+    //Key event wordt opslagen in var key
+    var key = event.key;
+
+    if(key === "1")
+    {
+        gebruikFiftyFifty();
+    }
+    else if(key === "2") 
+    {
+        gebruikPhone();
+    }
+    else if(key === "3") 
+    {
+        gebruikAudience();
+    }
+}
+
 //Maakt alle antwoord knoppen zichtbaar
 function maakAlleAntwoordenZichtbaar()
 {
@@ -746,14 +807,9 @@ function opgeven()
     //Laat het resetScherm zien
     resetScherm.hidden = false;
     resetScherm.classList.remove("verbergResetScherm");
-    if(vraagCounter == 0)
+    if(vraagCounter > 0)
     {
-        //Als je nog niet eens een vraag hebt beantwoordt en opgeeft
-        resetText.textContent = "You didn't even try!";
-    }
-    else
-    {
-        resetText.textContent = "You won " + liArray[ vraagCounter - 1 ].textContent + "!";//ERROR
+        resetText.textContent = "You won " + prijzen[vraagCounter - 1] + "!";
     }
 }
 
@@ -767,10 +823,11 @@ function reset()
 startKnop.addEventListener('click', start);
 opgeefKnop.addEventListener('click', opgeven);
 resetKnop.addEventListener('click', reset);
-antwoordKnop1.addEventListener('click', klikGoedAntwoord);
-antwoordKnop2.addEventListener('click', maakKnop2Rood);
-antwoordKnop3.addEventListener('click', maakKnop3Rood);
-antwoordKnop4.addEventListener('click', maakKnop4Rood);
+antwoordKnoppen[0].addEventListener('click', klikGoedAntwoord);
+antwoordKnoppen[1].addEventListener('click', maakKnop2Rood);
+antwoordKnoppen[2].addEventListener('click', maakKnop3Rood);
+antwoordKnoppen[3].addEventListener('click', maakKnop4Rood);
 fiftyFiftyKnop.addEventListener('click', gebruikFiftyFifty);
 phoneKnop.addEventListener('click', gebruikPhone);
 audienceKnop.addEventListener('click', gebruikAudience);
+document.addEventListener('keypress', schakelHulpLijnIn);
