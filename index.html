@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Who Wants to Be a Millionaire?</title> 
+</head>
+
+<body>
+
+    <div class="startScherm">
+        <div class="startMenu">
+            <img src="images/logo.png" style="width:400px" alt="">
+            <p>Are you ready?</p>
+            <button id="startKnop">Yes, I'm ready!</button>
+        </div>
+    </div>
+
+    <div class="resetScherm">
+        <div class="resetMenu">
+            <p>Want to try again?</p>
+            <button id="resetKnop">Try again!</button>
+        </div>
+    </div>
+
+    <audio src="audio/lets_play.mp3" id="letsPlayMusic"></audio>
+    <audio src="audio/correct.mp3" id="correctMusic"></audio>
+    <audio src="audio/lose.mp3" id="loseMusic"></audio>
+    <audio src="audio/5050.mp3" id="fiftyFiftyMusic"></audio>  
+    <audio src="audio/phone.mp3" id="phoneMusic"></audio>   
+    <audio src="audio/audience.mp3" id="audienceMusic"></audio>  
+
+    <main>
+        <section>
+            <div class="vraagExtra">
+
+                <div id="beller">
+                    <p>Ik denk dat het antwoord dit is</p>
+                    <img src="images/phone2.png">  
+                </div>
+               
+                <div id="publiek">
+                    <div id="procenten">
+                        <div id="antwoordA"></div>
+                        <div id="antwoordB"></div>
+                        <div id="antwoordC"></div>
+                        <div id="antwoordD"></div>
+                    </div>
+                    <div id="letters">
+                        <div class="letter">A<p id="antwoordAText">0%</p></div>
+                        <div class="letter">B<p id="antwoordBText">0%</p></div>
+                        <div class="letter">C<p id="antwoordCText">0%</p></div>
+                        <div class="letter">D<p id="antwoordDText">0%</p></div>
+                    </div>
+                </div>
+                
+                <img class="vraagAfbeelding" src="images/miljonairs.png" alt="">
+                
+            </div>
+
+            <div class="vraag">
+                <p>Snap je hoe dit spel werkt?</p>
+                <div class="timer">10</div>
+            </div>
+            
+            <div class="antwoorden">
+                <button id="antwoordKnop1" class="linksBoven">Ja</button>
+                <button id="antwoordKnop2" class="rechtsBoven">Nee</button>
+                <button id="antwoordKnop3" class="linksOnder">Nee</button>
+                <button id="antwoordKnop4" class="rechtsOnder">Nee</button>
+            </div>
+            
+        </section>
+        <aside>
+            <div class="hulpLijnen">
+                <button id="fiftyFiftyKnop"><img src="images/50.png"></button>
+                <button id="phoneKnop"><img src="images/phone.png"></button>
+                <button id="audienceKnop"><img src="images/audience.png"></button>
+            </div>
+            <ol>      
+            </ol>
+            <button id="opgeefKnop">Give up</button>
+        </aside>
+    </main>
+
+    <script src='scripts/script.js'></script>
+</body>
+</html>

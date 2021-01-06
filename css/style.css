@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+body {
+    height: 100%;
+    font-family: 'Roboto';
+    font-size: 1.1em;
+    background-color: #000;
+}
+
+main {
+    height:100%;
+    background-color: #ecf0f1;  
+    display: flex;
+    flex-direction: row;
+    z-index: 0;
+}
+
+aside {
+    height: 100%;
+    width: 20%;
+    background-color: #ecf0f1;
+    border-left: 2px solid #bdc3c7;
+}
+
+.hulpLijnen {
+    background-color: #9b59b6;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.hulpLijnen button {
+    background-color: #9b59b6; 
+    border: none;
+    padding: 7% 2%;
+}
+
+.hulpLijnen img {
+    height: 50px;
+}
+
+
+.disabledKnop {
+    background-color: #e74c3c !important;
+}
+
+
+
+
+ol {
+    display: flex;
+    flex-flow: column-reverse;
+    margin-top: 20px;
+}
+
+li {
+    display:inline-block;
+    padding: 10px 0;  
+    text-align: center;
+}
+
+.checkPoint {
+    color: #ecf0f1;
+    background-color: #9b59b6;
+    border-radius: 50px;
+}
+
+.huidigBedrag {
+    background-color: #f1c40f;
+    border-radius: 21px;
+}
+
+#opgeefKnop {
+    font-size: 1.1em;  
+    width: 70%;
+    height: 10%;   
+    border: 3px solid #bdc3c7;
+    border-radius: 50px;
+}
+
+#opgeefKnop {
+    margin-top: 20px;
+    font-size: 1.1em;  
+    width: 100%;
+    height: 10%;   
+    border: 3px solid #bdc3c7;
+    border-radius: 50px;
+}
+
+#opgeefKnop:hover  {
+    background-color: #bdc3c7;
+}
+
+section {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.vraagExtra {
+    height:60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vraagAfbeelding {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.vraag {
+    color: #ecf0f1;
+    height: 10%;
+    background-color: #9b59b6;
+    display: flex;
+    flex-flow: column;
+    justify-content: end;
+    border-radius: 50px 50px 0px 0px;
+}
+
+.vraag p {
+    width: 100%;
+    font-size: 24px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer {
+    align-self: flex-end;
+    width: 100%;
+    height: 20%;
+    background-color: #2ecc71;
+}
+
+.antwoorden {
+    height: 30%;
+    background-color: #ecf0f1;
+    position: relative;
+}
+
+.antwoorden button {
+    width: 46%;
+    height: 35%;   
+    margin: 1.5%;
+    font-size: 1.1em;  
+    border: 3px solid #bdc3c7;
+    border-radius: 50px;
+} 
+
+.linksBoven {
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+
+.rechtsBoven {
+    right: 0;
+    top: 0; 
+    position: absolute;
+}
+
+.linksOnder {
+    left: 0;
+    bottom: 0;  
+    position: absolute;
+}
+
+.rechtsOnder {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+
+.antwoorden button:hover {
+    background-color: #bdc3c7;
+}
+
+.goedAntwoord {
+    background-color: #2ecc71 !important;
+    color: #ecf0f1;
+}
+.foutAntwoord {
+    background-color: #e74c3c !important;
+    color: #ecf0f1;
+}
+
+
+
+.startScherm {
+    background-color: #9b59b6;
+    font-size: 1.1em;  
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.startMenu {
+    background-color: #ecf0f1;
+    width: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.startMenu button {
+    font-size: 1.1em;  
+    width: 70%;
+    height: 10%;   
+    border: 3px solid #bdc3c7;
+    border-radius: 50px;
+}
+
+.startMenu button:hover {
+    background-color: #bdc3c7;
+}
+
+
+
+
+
+
+.resetScherm {
+    background-color: #9b59b6;
+    font-size: 1.1em;  
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.resetMenu {
+    background-color: #ecf0f1;
+    width: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.resetMenu button {
+    font-size: 1.1em;  
+    width: 70%;
+    height: 10%;   
+    border: 3px solid #bdc3c7;
+    border-radius: 50px;
+}
+
+.resetMenu button:hover {
+    background-color: #bdc3c7;
+}
+
+.verbergResetScherm {
+    display: none;
+    visibility: hidden;
+}
+
+
+
+#beller {
+    position: absolute;
+    display: none;
+}
+#beller p {
+    background-color: #ecf0f1;
+    width: 100%;
+    padding: 10% 30%;
+    text-align: center;
+    font-size: 1.1em;  
+    border: 3px solid #9b59b6;
+    border-radius: 50px;
+}
+#beller img {
+    width: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+}
+
+
+#publiek {
+    display: none;
+    position: absolute;
+    bottom: 46%;
+}
+
+#procenten {
+    /* display: none; */
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    height: 60%;
+}
+
+#antwoordA, #antwoordB, #antwoordC, #antwoordD {
+    background-color: #9b59b6;
+    margin: 20px 20px 0 20px;
+    width: 80px;
+    height: 300px;
+}
+
+#letters {
+    display: flex;
+}
+
+.letter {
+    text-align: center;
+    font-size: 2em;
+    color: #ecf0f1;
+    background-color: #9b59b6;
+    margin: 0 20px;
+    width: 80px;
+    height: 82px;
+}
